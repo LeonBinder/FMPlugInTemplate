@@ -11,7 +11,6 @@
 
 #include <sstream>
 #include <string>
-#include <iomanip>
 
 // FileMaker Constants ==========================
 //Plugin ID
@@ -98,7 +97,7 @@ std::string create_json(const std::string& var1, const std::string& var2, const 
 
     json << "{";
     json << "\"Variable1\":\"" << escape_json(var1) << "\",";
-    json << "\"Variable2\":\"" << var2 << "\",";
+    json << "\"Variable2\":\"" << escape_json(var2) << "\",";
     json << "\"Variable3\":\"" << escape_json(var3) << "\"";
     json << "}";
 
