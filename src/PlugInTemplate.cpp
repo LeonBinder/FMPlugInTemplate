@@ -22,7 +22,7 @@ enum { kFMtp_FunctionTemplateID = 100, kFMtp_FunctionTemplateMin = 3, kFMtp_Func
 //Function Name, Definition & Description for FileMaker
 static const char* kFMtp_FunctionTemplateName("FMtp_FunctionTemplate");
 static const char* kFMtp_FunctionTemplateDefinition("FMtp_FunctionTemplate( param1 ; param2 ; param3 )");
-static const char* kFMtp_FunctionTemplateDescription("Takes Parameters from FileMaker and writes back ...");
+static const char* kFMtp_FunctionTemplateDescription("FileMaker PlugIn Template");
 
 // External Function
 std::tuple<std::string, std::string, std::string> ExternalFunction(std::string param1, std::string param2, std::string param3)
@@ -118,7 +118,7 @@ static FMX_PROC(fmx::errcode) Do_FMtp_FunctionTemplate(short /* funcId */, const
         std::string param2 = FMTextToString(dataVect.AtAsText(1));
         std::string param3 = FMTextToString(dataVect.AtAsText(2));
 
-        // Generate EEPROM data
+        // Run External Function
         auto result_tuple = ExternalFunction(param1, param2, param3);
 
         // Create JSON result
@@ -184,11 +184,11 @@ static void Do_GetString(fmx::uint32 whichString, fmx::uint32 /* winLangID */, f
     switch (whichString)
     {
     case kFMXT_NameStr:
-        CopyUTF8StrToUnichar16Str("GenEEPROMPlugIn", outBufferSize, outBuffer);
+        CopyUTF8StrToUnichar16Str("FMPlugInTemplate", outBufferSize, outBuffer);
         break;
 
     case kFMXT_AppConfigStr:
-        CopyUTF8StrToUnichar16Str("FileMaker PlugIn to generate EEPROM String, Checksum and Specification", outBufferSize, outBuffer);
+        CopyUTF8StrToUnichar16Str("FileMaker PlugIn Template", outBufferSize, outBuffer);
         break;
 
     case kFMXT_OptionsStr:
