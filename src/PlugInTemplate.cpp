@@ -3,11 +3,11 @@
 // </copyright>
 
 // Libraries =================================================
-#include "../Headers/FMWrapper/FMXTypes.h"
-#include "../Headers/FMWrapper/FMXText.h"
-#include "../Headers/FMWrapper/FMXFixPt.h"
-#include "../Headers/FMWrapper/FMXData.h"
-#include "../Headers/FMWrapper/FMXCalcEngine.h"
+#include <FMWrapper/FMXTypes.h>
+#include <FMWrapper/FMXText.h>
+#include <FMWrapper/FMXFixPt.h>
+#include <FMWrapper/FMXData.h>
+#include <FMWrapper/FMXCalcEngine.h>
 
 #include <sstream>
 #include <string>
@@ -27,7 +27,9 @@ static const char* kFMtp_FunctionTemplateDescription("FileMaker PlugIn Template"
 // External Function
 std::tuple<std::string, std::string, std::string> ExternalFunction(std::string param1, std::string param2, std::string param3)
 {
-    std::string res1, res2, res3;
+    std::string res1 = param1;
+    std::string res2 = param2;
+    std::string res3 = param3;
 
     return std::make_tuple(res1, res2, res3);
 }
@@ -48,7 +50,7 @@ std::string escape_json(const std::string& text)
     std::ostringstream buf;
 
     // Iterate over each character in the input string
-    for (auto c = text.cbegin(); c != text.cend(); c++) 
+    for (auto c = text.cbegin(); c != text.cend(); c++)
     {
         // Check the current character and perform the appropriate escape sequence
         switch (*c) 
@@ -272,7 +274,8 @@ void FMX_ENTRYPT FMExternCallProc(FMX_ExternCallPtr pb)
 
     case kFMXT_FileShutdown:
         break;
-
+    default:
+        break;
     } // switch whichCall
 
 } // FMExternCallProc
