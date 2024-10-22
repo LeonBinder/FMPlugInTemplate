@@ -1,0 +1,33 @@
+#Calls the function from the plugin with parameters and stores the results
+
+#Get Parameters
+Set Variable [ $ID_PART; Value:DATA::param1 ]
+Set Variable [ $Part_Name; Value:DATA::param2 ]
+Set Variable [ $MEDEL_Product_Code; Value:DATA::param3 ]
+
+#Check if all Parameters were given, if not show an error
+If [ IsEmpty($param1) or IsEmpty($param2) or IsEmpty($param3) ]
+
+  Set Field [ DATA::Result_Field1; TextColor ( "Generation Failed. Missing Parameters!" ; RGB ( 255 ; 0 ; 0 ) ) ]
+  Set Field [ DATA::Result_Field2; TextColor ( "Generation Failed. Missing Parameters!" ; RGB ( 255 ; 0 ; 0 ) ) ]
+  Set Field [ DATA::Result_Field3; TextColor ( "Generation Failed. Missing Parameters!" ; RGB ( 255 ; 0 ; 0 ) ) ]
+
+  Show Custom Dialog [ Title: "Error Message"; Message: "Generation has failed due to missing parameters. Make sure all fields are set!";Default Button: “OK”, Commit: “No” ]
+
+Else
+
+  #Call the Function from the PlugIn and store the Result
+  Set Variable [ $Function_Call; Value:"FMep_FunctionTemplate( " & Quote ( $param1 ) & " ; " & Quote ( $param2 ) & " ; " & Quote( $param3 ) & " )" ]
+  Set Variable [ $Results; Value:Evaluate ( $Function_Call ) ]
+
+    #Get Results and store in variable
+    Set Variable [ $Variable1; Value:JSONGetElement ( $Results ; "var1" ) ]
+    Set Variable [ $Variable2; Value:JSONGetElement ( $Results ; "var2" ) ]
+    Set Variable [ $Variabl3; Value:JSONGetElement ( $Results ; "var3" ) ]
+
+    #Set Fields to the Result
+    Set Field [ DATA::Result_EEPROM_String; $Variable1 ]
+    Set Field [ DATA::Result_EEPROM_Checksum; $Variable2 ]
+    Set Field [ DATA::Result_EEPROM_Specification; $Variable3 ]
+
+End If
