@@ -9,8 +9,11 @@
 ## To build the PlugIn
 
 - Clone this repository
-- Open the folder in VSCode
-- To configure CMake correctly, run *tasks.json* by pressing `Ctrl + Shift + B`
-- To build the project, press `F7` or `Ctrl + Shift + P`and then select CMake: Build in the VSCode command palette
+- Open the folder in VSCode or CLion
+- In CLion:
+  - Build/Run your Project
+- In VSCode:
+  - To configure CMake correctly, run *tasks.json* by pressing `Ctrl + Shift + B`
+  - To build the project, press `F7` or `Ctrl + Shift + P`and then select CMake: Build in the VSCode command palette
 
 &rarr; Now under *SOURCE_DIR/PlugIn* the FileMaker Plugin *PluginName.fmx64* has been created and is ready to use!
