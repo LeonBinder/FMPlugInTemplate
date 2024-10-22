@@ -33,7 +33,7 @@ target_compile_definitions(FMPlugInTemplate PRIVATE $<$<CONFIG:RELEASE>:NDEBUG;F
 # Post-build command to rename the output file
 add_custom_command(TARGET FMPlugInTemplate POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E rename
-    "$<TARGET_FILE:FMPlugInTemplate>" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PlugIn_Template.fmx64"
+    "$<TARGET_FILE:FMPlugInTemplate>" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PlugInTemplate.fmx64"
 )
 
 # Post-build command to remove unnecessary directories

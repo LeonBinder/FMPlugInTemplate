@@ -9,7 +9,6 @@
 ## To build the PlugIn
 
 - Clone this repository
-- Make sure the *boost library* is installed under the path written in `.vscode/c_cpp_properties.json`
 - Open the folder in VSCode
 - To configure CMake correctly, run *tasks.json* by pressing `Ctrl + Shift + B`
 - To build the project, press `F7` or `Ctrl + Shift + P`and then select CMake: Build in the VSCode command palette
