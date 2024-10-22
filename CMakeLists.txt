@@ -23,20 +23,35 @@ add_library(FMPlugInTemplate SHARED ${SOURCES})
 target_include_directories(FMPlugInTemplate PRIVATE ${CMAKE_SOURCE_DIR}/Headers)
 target_include_directories(FMPlugInTemplate PRIVATE ${CMAKE_SOURCE_DIR}/Libraries)
 
-# Link against additional libraries
-target_link_libraries(FMPlugInTemplate "-framework ${CMAKE_SOURCE_DIR}/Libraries/Mac/FMWrapper.framework/Versions/A/FMWrapper")
+# Platform-specific settings
+if(APPLE)
+    # macOS-specific linking
+    target_link_libraries(FMPlugInTemplate "-framework ${CMAKE_SOURCE_DIR}/Libraries/Mac/FMWrapper.framework/Versions/A/FMWrapper")
+
+elseif(WIN32)
+    # Windows-specific linking
+    target_link_directories(FMPlugInTemplate PRIVATE ${CMAKE_SOURCE_DIR}/Libraries/Win/x64)
+    target_link_libraries(FMPlugInTemplate PRIVATE FMWrapper)
+
+    # Set specific compiler flags for Windows builds
+    target_compile_definitions(FMPlugInTemplate PRIVATE $<$<CONFIG:DEBUG>:_DEBUG;_WINDOWS;_USRDLL;FMPlugInTemplate_EXPORTS>)
+    target_compile_definitions(FMPlugInTemplate PRIVATE $<$<CONFIG:RELEASE>:NDEBUG;_WINDOWS;_USRDLL;FMPlugInTemplate_EXPORTS>)
+
+    # Specify the libraries to delay-load for Windows
+    set_property(TARGET FMPlugInTemplate PROPERTY LINK_FLAGS "/DELAYLOAD:FMWrapper.dll")
+endif()
 
 # Set specific compiler flags for Debug and Release builds
 target_compile_definitions(FMPlugInTemplate PRIVATE $<$<CONFIG:DEBUG>:_DEBUG;FMPlugInTemplate_EXPORTS>)
 target_compile_definitions(FMPlugInTemplate PRIVATE $<$<CONFIG:RELEASE>:NDEBUG;FMPlugInTemplate_EXPORTS>)
 
-# Post-build command to rename the output file
+# Post-build command to rename the output file to .fmx64 
 add_custom_command(TARGET FMPlugInTemplate POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E rename
     "$<TARGET_FILE:FMPlugInTemplate>" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/PlugInTemplate.fmx64"
 )
 
-# Post-build command to remove unnecessary directories
+# Post-build command to remove the Debug folder
 add_custom_command(TARGET FMPlugInTemplate POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug"
 )
