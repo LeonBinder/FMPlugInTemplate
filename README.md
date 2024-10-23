@@ -1,8 +1,8 @@
-# Plugin Template - CASCINATION 
+# Plugin Template - FileMaker
 ![](https://img.shields.io/badge/FileMaker-gray)
 ![](https://img.shields.io/badge/PlugIn-black)
 ![](https://img.shields.io/badge/C++-F34B7D) <br>
-... Plugin for FileMaker
+Template for creating FileMaker PlugIn's. Comes with my favourite Structure and some Helper Functions
 
 *Based on the [Claris FileMaker Plugin SDK](https://help.claris.com/en/pro-help/content/custom-plug-ins.html)*
 
